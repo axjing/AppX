@@ -1,6 +1,7 @@
 scipy
 numpy
 matplotlib
+bcrypt
 opencv_python
 torch
 torchvision
