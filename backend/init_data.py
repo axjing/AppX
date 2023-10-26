@@ -10,9 +10,11 @@
 
 
 from db.crud import create_user
-from db.schemas import UserCreate
-from db.session import SessionLocal, get_db
+from app.db import models
+from app.db.schemas import UserCreate
+from app.db.session import SessionLocal, engine, get_db
 
+models.Base.metadata.create_all(bind=engine)
 
 def init() -> None:
     db = SessionLocal()
