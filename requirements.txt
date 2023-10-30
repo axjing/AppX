@@ -16,4 +16,4 @@ sqlalchemy-utils
 redis
 pytest
 celery
-
+httpx

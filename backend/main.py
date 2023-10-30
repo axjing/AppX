@@ -1,10 +1,25 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+@File    :   main.py
+@Time    :   2023/10/30 22:38:11
+@Author  :   axjing 
+@Version :   0.1.0
+@Desc    :   None
+'''
+
+
+from typing import List
+
 import uvicorn
 from core import config
 from fastapi import Depends, FastAPI
+from sqlalchemy.orm import Session
 from starlette.requests import Request
 
-from .db.session import SessionLocal, engine
 from .db import crud, models, schemas
+from .db.session import SessionLocal, engine
+
 app = FastAPI(
     title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api"
 )
@@ -22,7 +37,9 @@ def get_db():
         db.close()
 
 
-@app.post("/users/", response_model=schemas.User)
+# app.post("/users/", response_model=schemas.User)
+# 路由路径，注册用户
+@app.post("/register", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     # 根据email查找用户
     db_user = crud.get_user_by_email(db, email=user.email)
@@ -40,8 +57,10 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return users
 
 
-@app.get("/users/{user_id}", response_model=schemas.User)
-def read_user(user_id: int, db: Session = Depends(get_db)):
+# @app.get("/users/{user_id}", response_model=schemas.User)
+# 用户登录
+@app.post("/login", response_model=User)
+def login(user_id: int, db: Session = Depends(get_db)):
     # 获取当前id的用户信息
     db_user = crud.get_user(db, user_id=user_id)
     # 如果没有信息，提示用户不存在
@@ -51,4 +70,4 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8888)
+    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8000)
