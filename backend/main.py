@@ -16,12 +16,32 @@ from core import config
 from db import crud, models, schemas
 from db.session import SessionLocal, engine
 from fastapi import Depends, FastAPI, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware  # 解决跨域
 from sqlalchemy.orm import Session
 from starlette.requests import Request
 
 app = FastAPI(
     # title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api"
 )
+
+# 配置允许域名
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:3002",
+    "http://localhost:3003",
+
+]
+# 配置允许域名列表、允许方法、请求头、cookie等
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 models.Base.metadata.create_all(bind=engine)
 
 @app.get("/")
