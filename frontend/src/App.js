@@ -1,12 +1,14 @@
 import './App.css';
 import Login from './Login';
 import Register from './Register';
+import Chat from './Chat'
 import logo from './logo.svg';
 function App() {
   return (
     <div className="App">
       <Login />
       <Register />
+      <Chat />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

@@ -6,41 +6,37 @@
 [TOC]
 
 ## 安装环境
-```
+### python 后端安装
+```sh
 pip install -r requirements.txt
 ```
-
-## 测试步骤
-### 使用预训练权重
-1. 运行`test2img.py`：
-```shell
-python test2img.py
+### react前端安装
+1. 创建一个新的React应用：
+```sh
+npm create-react-app user-auth-app
+cd user-auth-app
+```
+2. 安装axios库以便进行HTTP请求：
+```sh
+npm install axios
 ```
 
-## 训练步骤
-1. 本文使用如下格式进行训练。
+## 使用说明
+1. 启动运行FastAPI应用程序
+```sh
+cd backend
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
-|-datasets
-    |-people0
-        |-123.jpg
-        |-234.jpg
-    |-people1
-        |-345.jpg
-        |-456.jpg
-    |-...
-```  
-2. 下载好数据集，将训练用的CASIA-WebFaces数据集以及评估用的LFW数据集，解压后放在根目录。
-3. 在训练前利用`generate_annotation_file.py`文件生成对应的cls_train.txt。  
-4. 利用`train.py`训练facenet模型，训练前，根据自己的需要选择backbone，model_path和backbone一定要对应。
-5. 运行`train.py`即可开始训练。
+2. 然后，您可以在浏览器或API测试工具中访问 `http://127.0.0.1:8000/docs`，使用自动生成的交互式文档测试这两个端点。您还可以使用API请求库（如requests）来与这些端点进行交互。
+3. 运行React应用：
+```sh
+cd frontend
+npm start
+```
 
-## 评估步骤
-1. 下载好评估数据集，将评估用的LFW数据集，解压后放在根目录
-2. 在eval_LFW.py设置使用的主干特征提取网络和网络权值。
-3. 运行eval_LFW.py来进行模型准确率评估。
 
 ## Reference
-1. https://github.com/davidsandberg/facenet
-2. https://github.com/timesler/facenet-pytorch
-3. https://github.com/bubbliiiing/facenet-retinaface-pytorch
 
+## 补充
+
+### MySQL使用
