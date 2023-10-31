@@ -12,7 +12,6 @@
 from typing import List
 
 import httpx
-import uvicorn
 from core import config
 from db import crud, models, schemas
 from db.session import SessionLocal, engine
@@ -91,5 +90,6 @@ async def chat(prompt: str = Form(...)):
         else:
             raise HTTPException(status_code=500, detail="GPT-3 API request failed")
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8000)
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8000)

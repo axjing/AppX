@@ -1,7 +1,8 @@
+import React from 'react';
 import './App.css';
+import Chat from './Chat';
 import Login from './Login';
 import Register from './Register';
-import Chat from './Chat'
 import logo from './logo.svg';
 function App() {
   return (
