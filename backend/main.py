@@ -20,27 +20,29 @@ from fastapi.middleware.cors import CORSMiddleware  # 解决跨域
 from sqlalchemy.orm import Session
 from starlette.requests import Request
 
+description="一个有理想的仓库"
 app = FastAPI(
-    # title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api"
+    title=config.PROJECT_NAME,
+    description=description#, docs_url="/docs", openapi_url="/"
 )
 
-# 配置允许域名
-origins = [
-    "http://localhost",
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "http://localhost:3002",
-    "http://localhost:3003",
+# # 配置允许域名
+# origins = [
+#     "http://localhost",
+#     "http://localhost:3000",
+#     "http://localhost:3001",
+#     "http://localhost:3002",
+#     "http://localhost:3003",
 
-]
-# 配置允许域名列表、允许方法、请求头、cookie等
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# ]
+# # 配置允许域名列表、允许方法、请求头、cookie等
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -110,6 +112,6 @@ async def chat(prompt: str = Form(...)):
         else:
             raise HTTPException(status_code=500, detail="GPT-3 API request failed")
 
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8000)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="127.0.0.1", reload=True, port=8000)
