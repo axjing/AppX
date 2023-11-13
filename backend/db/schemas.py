@@ -10,15 +10,14 @@
 
 import typing as t
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 class UserBase(BaseModel):
-    email: str
+    username:str
+    email: EmailStr
     is_active: bool = True
     is_superuser: bool = False
-    first_name: str = None
-    last_name: str = None
 
 
 class UserOut(UserBase):

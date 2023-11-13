@@ -1,7 +1,7 @@
 import os
 
-PROJECT_NAME = "{{idealX}}"
+PROJECT_NAME = "AppX"
 
-SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:AX098@localhost/fastapi_user_db"
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:AX098@localhost/dbX"
 
 API_V1_STR = "/api/v1"
