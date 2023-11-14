@@ -77,11 +77,11 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db))
 # 用户登录
 # @app.post("/login", response_model=schemas.User)
 @app.post("/login")
-async def login_user(username: str = Form(...), password:str = Form(...),db: Session = Depends(get_db)):
+async def login_user(user_nm_wd: schemas.UserLogin,db: Session = Depends(get_db)):
     # 获取当前id的用户信息
-    user = crud.get_users_by_user(db, username=username)
+    user = crud.get_users_by_user(db, username=user_nm_wd.username)
     # 如果没有信息，提示用户不存在
-    if not user or not crud.verify_password(password, str(user.password_hash)):
+    if not user or not crud.verify_password(user_nm_wd.password, str(user.password_hash)):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid credentials",

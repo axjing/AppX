@@ -23,6 +23,9 @@ class UserBase(BaseModel):
 class UserOut(UserBase):
     pass
 
+class UserLogin(BaseModel):
+    username:str
+    password:str
 
 class UserCreate(UserBase):
     password: str
